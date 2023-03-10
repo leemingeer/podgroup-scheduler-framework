@@ -19,7 +19,7 @@ limitations under the License.
 package scheme
 
 import (
-	schedulingv1 "github.com/leemingeer/podgroup-scheduler-framework/pkg/apis/scheduling.ming.io/v1"
+	schedulingv1 "github.com/leemingeer/podgroup-scheduler-framework/pkg/apis/scheduling/v1"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"

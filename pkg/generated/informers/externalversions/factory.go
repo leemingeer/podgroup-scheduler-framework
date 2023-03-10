@@ -25,7 +25,7 @@ import (
 
 	versioned "github.com/leemingeer/podgroup-scheduler-framework/pkg/generated/clientset/versioned"
 	internalinterfaces "github.com/leemingeer/podgroup-scheduler-framework/pkg/generated/informers/externalversions/internalinterfaces"
-	schedulingmingio "github.com/leemingeer/podgroup-scheduler-framework/pkg/generated/informers/externalversions/scheduling.ming.io"
+	scheduling "github.com/leemingeer/podgroup-scheduler-framework/pkg/generated/informers/externalversions/scheduling"
 	v1 "k8s.io/apimachinery/pkg/apis/meta/v1"
 	runtime "k8s.io/apimachinery/pkg/runtime"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
@@ -172,9 +172,9 @@ type SharedInformerFactory interface {
 	ForResource(resource schema.GroupVersionResource) (GenericInformer, error)
 	WaitForCacheSync(stopCh <-chan struct{}) map[reflect.Type]bool
 
-	Scheduling() schedulingmingio.Interface
+	Scheduling() scheduling.Interface
 }
 
-func (f *sharedInformerFactory) Scheduling() schedulingmingio.Interface {
-	return schedulingmingio.New(f, f.namespace, f.tweakListOptions)
+func (f *sharedInformerFactory) Scheduling() scheduling.Interface {
+	return scheduling.New(f, f.namespace, f.tweakListOptions)
 }

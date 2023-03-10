@@ -20,8 +20,8 @@ package fake
 
 import (
 	clientset "github.com/leemingeer/podgroup-scheduler-framework/pkg/generated/clientset/versioned"
-	schedulingv1 "github.com/leemingeer/podgroup-scheduler-framework/pkg/generated/clientset/versioned/typed/scheduling.ming.io/v1"
-	fakeschedulingv1 "github.com/leemingeer/podgroup-scheduler-framework/pkg/generated/clientset/versioned/typed/scheduling.ming.io/v1/fake"
+	schedulingv1 "github.com/leemingeer/podgroup-scheduler-framework/pkg/generated/clientset/versioned/typed/scheduling/v1"
+	fakeschedulingv1 "github.com/leemingeer/podgroup-scheduler-framework/pkg/generated/clientset/versioned/typed/scheduling/v1/fake"
 	"k8s.io/apimachinery/pkg/runtime"
 	"k8s.io/apimachinery/pkg/watch"
 	"k8s.io/client-go/discovery"

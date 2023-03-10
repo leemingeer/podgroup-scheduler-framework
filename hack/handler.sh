@@ -5,10 +5,13 @@
 all \
 github.com/leemingeer/podgroup-scheduler-framework/pkg/generated \
 github.com/leemingeer/podgroup-scheduler-framework/pkg/apis \
-scheduling.ming.io:v1  \
+scheduling:v1  \
 --output-base ../../../ \
 --go-header-file /home/cloud/ming/code-generator/hack/boilerplate.go.txt \
 -v 10
 
 # only generate crd
-controller-gen  crd paths=./... output:crd:dir=config/crd
+/root/go/bin/controller-gen  crd paths=./... output:crd:dir=config/crd
+
+# only generate config api deepcopy
+/root/go/bin/controller-gen object paths=./pkg/apis/config/v1beta1/types.go

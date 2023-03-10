@@ -21,7 +21,7 @@ package externalversions
 import (
 	"fmt"
 
-	v1 "github.com/leemingeer/podgroup-scheduler-framework/pkg/apis/scheduling.ming.io/v1"
+	v1 "github.com/leemingeer/podgroup-scheduler-framework/pkg/apis/scheduling/v1"
 	schema "k8s.io/apimachinery/pkg/runtime/schema"
 	cache "k8s.io/client-go/tools/cache"
 )

@@ -21,7 +21,7 @@ package versioned
 import (
 	"fmt"
 
-	schedulingv1 "github.com/leemingeer/podgroup-scheduler-framework/pkg/generated/clientset/versioned/typed/scheduling.ming.io/v1"
+	schedulingv1 "github.com/leemingeer/podgroup-scheduler-framework/pkg/generated/clientset/versioned/typed/scheduling/v1"
 	discovery "k8s.io/client-go/discovery"
 	rest "k8s.io/client-go/rest"
 	flowcontrol "k8s.io/client-go/util/flowcontrol"
