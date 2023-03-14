@@ -1,0 +1,64 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    component: scheduler
+  name: {{ .Values.scheduler.name }}
+  namespace: {{ .Values.scheduler.namespace }}
+spec:
+  selector:
+    matchLabels:
+      component: scheduler
+  replicas: {{ .Values.scheduler.replicaCount }}
+  template:
+    metadata:
+      labels:
+        component: scheduler
+    spec:
+      serviceAccountName: scheduler-plugins-scheduler
+      containers:
+      - command:
+        - sample-scheduler
+        - --address=0.0.0.0
+        - --leader-elect=false
+        - --authentication-kubeconfig=/etc/kubernetes/scheduler.conf
+        - --authorization-kubeconfig=/etc/kubernetes/scheduler.conf
+        - --kubeconfig=/etc/kubernetes/scheduler.conf
+        - --config=/etc/kubernetes/scheduler-config.yaml
+        - --scheduler-name=podgroup-scheduler
+        - -v=5
+        image: {{ .Values.scheduler.image }}
+        livenessProbe:
+          httpGet:
+            path: /healthz
+            port: 10251
+          initialDelaySeconds: 15
+        name: scheduler-plugins-scheduler
+        readinessProbe:
+          httpGet:
+            path: /healthz
+            port: 10251
+        resources:
+          requests:
+            cpu: '0.1'
+        securityContext:
+          privileged: false
+        volumeMounts:
+        - name: scheduler-config
+          mountPath: /etc/kubernetes/scheduler-config.yaml
+          readOnly: true
+          subPath: scheduler-config.yaml
+        - mountPath: /etc/kubernetes/scheduler.conf
+          name: kubeconfig
+      hostNetwork: false
+      hostPID: false
+      volumes:
+      - name: scheduler-config
+        configMap:
+          name: scheduler-config
+      - hostPath:
+          path: /etc/kubernetes/scheduler.conf
+          type: FileOrCreate
+        name: kubeconfig
+

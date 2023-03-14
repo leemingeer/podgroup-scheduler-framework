@@ -19,6 +19,7 @@ package coscheduling
 import (
 	"context"
 	"fmt"
+	"github.com/leemingeer/podgroup-scheduler-framework/pkg/apis/config"
 	"time"
 
 	v1 "k8s.io/api/core/v1"
@@ -33,7 +34,6 @@ import (
 	"k8s.io/klog/v2"
 	"k8s.io/kubernetes/pkg/scheduler/framework"
 
-	configv1beta1 "github.com/leemingeer/podgroup-scheduler-framework/pkg/apis/config/v1beta1"
 	"github.com/leemingeer/podgroup-scheduler-framework/pkg/coscheduling/core"
 	pgclientset "github.com/leemingeer/podgroup-scheduler-framework/pkg/generated/clientset/versioned"
 	pgformers "github.com/leemingeer/podgroup-scheduler-framework/pkg/generated/informers/externalversions"
@@ -61,11 +61,12 @@ const (
 
 // New initializes and returns a new Coscheduling plugin.
 func New(obj runtime.Object, handle framework.Handle) (framework.Plugin, error) {
-	args, ok := obj.(*configv1beta1.CoschedulingArgs)
+	fmt.Printf("want args to be of type CoschedulingArgs, got %T, details: %#v\n", obj, obj)
+	args, ok := obj.(*config.CoschedulingArgs)
 	if !ok {
-		return nil, fmt.Errorf("want args to be of type CoschedulingArgs, got %T", obj)
+		args, _ := obj.(*runtime.Unknown)
+		return nil, fmt.Errorf("want args to be of type CoschedulingArgs, got %T, obj: %#v, obj detail: %#v", obj, args, string(args.Raw))
 	}
-
 	conf, err := clientcmd.BuildConfigFromFlags(args.KubeMaster, args.KubeConfigPath)
 	if err != nil {
 		return nil, fmt.Errorf("failed to init rest.Config: %v", err)
