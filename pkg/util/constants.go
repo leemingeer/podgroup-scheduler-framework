@@ -4,7 +4,7 @@ import "fmt"
 
 const (
 	// PodGroupLabel is the default label of coscheduling
-	PodGroupLabel = "pod-group.scheduling.sigs.k8s.io"
+	PodGroupLabel = "pod-group.scheduling.ming.io"
 )
 
 var (

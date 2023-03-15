@@ -21,10 +21,12 @@ import (
 	"os"
 	"time"
 
+	"github.com/leemingeer/podgroup-scheduler-framework/pkg/coscheduling"
 	"k8s.io/component-base/logs"
 	"k8s.io/kubernetes/cmd/kube-scheduler/app"
 
-	"github.com/leemingeer/podgroup-scheduler-framework/pkg/coscheduling"
+	// Ensure scheme package is initialized.
+	_ "github.com/leemingeer/podgroup-scheduler-framework/pkg/apis/config/scheme"
 )
 
 func main() {

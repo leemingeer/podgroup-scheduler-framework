@@ -61,7 +61,6 @@ const (
 
 // New initializes and returns a new Coscheduling plugin.
 func New(obj runtime.Object, handle framework.Handle) (framework.Plugin, error) {
-	fmt.Printf("want args to be of type CoschedulingArgs, got %T, details: %#v\n", obj, obj)
 	args, ok := obj.(*config.CoschedulingArgs)
 	if !ok {
 		args, _ := obj.(*runtime.Unknown)
@@ -134,6 +133,7 @@ func (cs *Coscheduling) Less(podInfo1, podInfo2 *framework.QueuedPodInfo) bool {
 func (cs *Coscheduling) PreFilter(ctx context.Context, state *framework.CycleState, pod *v1.Pod) *framework.Status {
 	// If any validation failed, a no-op state data is injected to "state" so that in later
 	// phases we can tell whether the failure comes from PreFilter or not.
+	klog.V(5).Infof("Coscheduling PreFilter point, for pod(%v)", pod.Name)
 	if err := cs.pgMgr.PreFilter(ctx, pod); err != nil {
 		klog.Error(err)
 		state.Write(cs.getStateKey(), NewNoopStateData())
@@ -145,6 +145,7 @@ func (cs *Coscheduling) PreFilter(ctx context.Context, state *framework.CycleSta
 // PostFilter is used to rejecting a group of pods if a pod does not pass PreFilter or Filter.
 func (cs *Coscheduling) PostFilter(ctx context.Context, state *framework.CycleState, pod *v1.Pod,
 	filteredNodeStatusMap framework.NodeToStatusMap) (*framework.PostFilterResult, *framework.Status) {
+	klog.V(5).Infof("Coscheduling PostFilter point, for pod(%v), filteredNodeStatusMap: %v", pod.Name, filteredNodeStatusMap)
 	// Check if the failure comes from PreFilter or not.
 	_, err := state.Read(cs.getStateKey())
 	if err == nil {
@@ -195,6 +196,7 @@ func (cs *Coscheduling) PreFilterExtensions() framework.PreFilterExtensions {
 
 // Permit is the functions invoked by the framework at "Permit" extension point.
 func (cs *Coscheduling) Permit(ctx context.Context, state *framework.CycleState, pod *v1.Pod, nodeName string) (*framework.Status, time.Duration) {
+	klog.V(5).Infof("Coscheduling Permit point, pod(%v) is assigned to %v", pod.Name, nodeName)
 	fullName := util.GetPodGroupFullName(pod)
 	if len(fullName) == 0 {
 		return framework.NewStatus(framework.Success, ""), 0
@@ -239,6 +241,7 @@ func (cs *Coscheduling) Reserve(ctx context.Context, state *framework.CycleState
 
 // Unreserve rejects all other Pods in the PodGroup when one of the pods in the group times out.
 func (cs *Coscheduling) Unreserve(ctx context.Context, state *framework.CycleState, pod *v1.Pod, nodeName string) {
+	klog.V(5).Infof("Coscheduling Unreserve point, for pod(%v) which is assigned to %v", pod.Name, nodeName)
 	pgName, pg := cs.pgMgr.GetPodGroup(pod)
 	if pg == nil {
 		return
@@ -255,7 +258,7 @@ func (cs *Coscheduling) Unreserve(ctx context.Context, state *framework.CycleSta
 
 // PostBind is called after a pod is successfully bound. These plugins are used update PodGroup when pod is bound.
 func (cs *Coscheduling) PostBind(ctx context.Context, _ *framework.CycleState, pod *v1.Pod, nodeName string) {
-	klog.V(5).Infof("PostBind pod: %v", core.GetNamespacedName(pod))
+	klog.V(5).Infof("Coscheduling PostBind pod: %v", core.GetNamespacedName(pod))
 	cs.pgMgr.PostBind(ctx, pod, nodeName)
 }
 

@@ -7,10 +7,12 @@ data:
   scheduler-config.yaml: |
     apiVersion: kubescheduler.config.k8s.io/v1beta1
     kind: KubeSchedulerConfiguration
+    clientConnection:
+      kubeconfig: /etc/kubernetes/admin.conf
     leaderElection:
       leaderElect: false
     profiles:
-    - schedulerName: scheduler-plugins-scheduler
+    - schedulerName: sample-scheduler
       plugins:
         queueSort:
           enabled:
@@ -34,3 +36,4 @@ data:
         args:
           permitWaitingTimeSeconds: 10
           deniedPGExpirationTimeSeconds: 3
+          kubeConfigPath: /etc/kubernetes/admin.conf

@@ -3,7 +3,7 @@
 # Declare variables to be passed into your templates.
 
 scheduler:
-  name: scheduler-plugins-scheduler
-  image: leemingeer/sample-scheduler:v1.0.9.2
+  name: sample-scheduler
+  image: leemingeer/sample-scheduler:v1.1.0
   namespace: default
   replicaCount: 1

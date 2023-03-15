@@ -1,7 +1,7 @@
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRole
 metadata:
-  name: scheduler-plugins-scheduler
+  name: sample-scheduler
 rules:
 - apiGroups: ["", "events.k8s.io"]
   resources: ["events"]
@@ -56,18 +56,18 @@ rules:
 - apiGroups: ["storage.k8s.io"]
   resources: ["csinodes", "storageclasses"]
   verbs: ["get", "list", "watch"]
-- apiGroups: ["scheduling.sigs.k8s.io"]
-  resources: ["podgroups", "elasticquotas"]
+- apiGroups: ["scheduling.ming.io"]
+  resources: ["podgroups"]
   verbs: ["get", "list", "watch", "create", "delete", "update", "patch"]
 ---
 kind: ClusterRoleBinding
 apiVersion: rbac.authorization.k8s.io/v1
 metadata:
-  name: scheduler-plugins-scheduler
+  name: sample-scheduler
 roleRef:
   apiGroup: rbac.authorization.k8s.io
   kind: ClusterRole
-  name: scheduler-plugins-scheduler
+  name: sample-scheduler
 subjects:
 - kind: ServiceAccount
   name: {{ .Values.scheduler.name }}

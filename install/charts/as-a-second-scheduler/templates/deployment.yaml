@@ -16,7 +16,9 @@ spec:
       labels:
         component: scheduler
     spec:
-      serviceAccountName: scheduler-plugins-scheduler
+      serviceAccountName: sample-scheduler
+      nodeSelector:
+        kubernetes.io/hostname: master1
       containers:
       - command:
         - sample-scheduler
@@ -33,8 +35,8 @@ spec:
           httpGet:
             path: /healthz
             port: 10251
-          initialDelaySeconds: 15
-        name: scheduler-plugins-scheduler
+          initialDelaySeconds: 180
+        name: sample-scheduler
         readinessProbe:
           httpGet:
             path: /healthz
@@ -51,6 +53,8 @@ spec:
           subPath: scheduler-config.yaml
         - mountPath: /etc/kubernetes/scheduler.conf
           name: kubeconfig
+        - mountPath: /etc/kubernetes/admin.conf
+          name: adminconfig
       hostNetwork: false
       hostPID: false
       volumes:
@@ -61,4 +65,8 @@ spec:
           path: /etc/kubernetes/scheduler.conf
           type: FileOrCreate
         name: kubeconfig
+      - hostPath:
+          path: /etc/kubernetes/admin.conf
+          type: FileOrCreate
+        name: adminconfig
 

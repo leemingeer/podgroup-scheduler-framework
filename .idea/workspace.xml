@@ -1,13 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a9078026-6f5f-4648-8646-0e607caa352a" name="Default Changelist" comment="" />
+    <list default="true" id="a9078026-6f5f-4648-8646-0e607caa352a" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Makefile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/build/scheduler/Dockerfile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/example/nginx.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/example/podgroup.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cmd/scheduler/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/cmd/scheduler/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hack/handler.sh" beforeDir="false" afterPath="$PROJECT_DIR$/hack/handler.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/install/charts/as-a-second-scheduler/templates/configmap.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/install/charts/as-a-second-scheduler/templates/configmap.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/install/charts/as-a-second-scheduler/templates/deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/install/charts/as-a-second-scheduler/templates/deployment.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/install/charts/as-a-second-scheduler/templates/rbac.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/install/charts/as-a-second-scheduler/templates/rbac.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/install/charts/as-a-second-scheduler/values.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/install/charts/as-a-second-scheduler/values.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/coscheduling/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/coscheduling/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/coscheduling/core/core.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/coscheduling/core/core.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/coscheduling/coscheduling.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/coscheduling/coscheduling.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/util/constants.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/util/constants.go" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="GOROOT" url="file://$PROJECT_DIR$/../go1.19.6" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GoLibraries">
+    <option name="indexEntireGoPath" value="false" />
+  </component>
   <component name="ProjectId" id="2Ml4zRUCcCtEp58zs6sBfqYkSpm" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -17,11 +39,40 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="configurable..is.expanded" value="false" />
+    <property name="configurable.GoLibrariesConfigurable.is.expanded" value="true" />
     <property name="go.import.settings.migrated" value="true" />
-    <property name="last_opened_file_path" value="$USER_HOME$" />
+    <property name="go.tried.to.enable.integration.vgo.integrator" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../kubernetes" />
+    <property name="settings.editor.selected.configurable" value="go.vgo" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Administrator\go\podgroup-scheduler-framework\install\charts\as-a-second-scheduler\templates" />
+    </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VgoProject">
+    <integration-enabled>true</integration-enabled>
+    <environment>
+      <map>
+        <entry key="GOPROXY" value="https://goproxy.cn,direct" />
+      </map>
+    </environment>
   </component>
 </project>

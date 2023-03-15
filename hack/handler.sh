@@ -10,6 +10,7 @@ scheduling:v1  \
 --go-header-file /home/cloud/ming/code-generator/hack/boilerplate.go.txt \
 -v 10
 
+# for internal type
 /home/cloud/ming/code-generator/generate-internal-groups.sh \
 "deepcopy,defaulter,conversion" \
 github.com/leemingeer/podgroup-scheduler-framework/pkg/generated \

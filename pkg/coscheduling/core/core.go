@@ -100,6 +100,7 @@ func NewPodGroupManager(pgClient pgclientset.Interface, snapshotSharedLister fra
 func (pgMgr *PodGroupManager) PreFilter(ctx context.Context, pod *corev1.Pod) error {
 	klog.V(5).Infof("Pre-filter %v", pod.Name)
 	pgFullName, pg := pgMgr.GetPodGroup(pod)
+	klog.V(5).Infof("Get pod group info %+v", pg)
 	if pg == nil {
 		return nil
 	}
@@ -131,6 +132,7 @@ func (pgMgr *PodGroupManager) PreFilter(ctx context.Context, pod *corev1.Pod) er
 	}
 
 	nodes, err := pgMgr.snapshotSharedLister.NodeInfos().List()
+	klog.V(5).Infof("Get nodes info %+v", nodes)
 	if err != nil {
 		return err
 	}
