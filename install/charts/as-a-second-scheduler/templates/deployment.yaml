@@ -28,7 +28,7 @@ spec:
         - --authorization-kubeconfig=/etc/kubernetes/scheduler.conf
         - --kubeconfig=/etc/kubernetes/scheduler.conf
         - --config=/etc/kubernetes/scheduler-config.yaml
-        - --scheduler-name=podgroup-scheduler
+        - --scheduler-name={{ .Values.scheduler.name }}
         - -v=5
         image: {{ .Values.scheduler.image }}
         livenessProbe:

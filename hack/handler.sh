@@ -27,8 +27,3 @@ github.com/leemingeer/podgroup-scheduler-framework/pkg/apis \
 
 # only generate config api deepcopy
 /root/go/bin/controller-gen object paths=./pkg/apis/config/v1beta1/types.go
-
-
-## compile
-GOARCH=arm64 go build -ldflags '-X k8s.io/component-base/version.gitVersion=v0.0.1 -w' -o bin/sample-scheduler cmd/scheduler/main.go
-docker build -t leemingeer/sample-scheduler:v1.0.3 .

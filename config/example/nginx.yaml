@@ -6,7 +6,7 @@ metadata:
   labels:
     app: nginx
 spec:
-  replicas: 6
+  replicas: 2
   selector:
     matchLabels:
       app: nginx
@@ -15,7 +15,7 @@ spec:
       name: nginx
       labels:
         app: nginx
-        pod-group.scheduling.ming.io: nginx
+        pod-group.scheduling.sigs.k8s.io: nginx
     spec:
       schedulerName: sample-scheduler
       containers:

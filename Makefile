@@ -18,11 +18,11 @@ RELEASE_IMAGE:=sample-scheduler:$(RELEASE_VERSION)
 # compile
 .PHONY: build-scheduler.amd64
 build-scheduler.amd64:
-	GOOS=linux CGO_ENABLED=0 GOARCH=amd64 go build -ldflags '-X k8s.io/component-base/version.gitVersion=$(VERSION) -w' -o bin/kube-scheduler cmd/scheduler/main.go
+	GOOS=linux CGO_ENABLED=0 GOARCH=amd64 go build -ldflags '-X k8s.io/component-base/version.gitVersion=$(VERSION) -w' -o bin/sample-scheduler cmd/scheduler/main.go
 
 .PHONY: build-scheduler.arm64
 build-scheduler.arm64:
-	GOOS=linux CGO_ENABLED=0 GOARCH=arm64 go build -ldflags '-X k8s.io/component-base/version.gitVersion=$(VERSION) -w' -o bin/kube-scheduler cmd/scheduler/main.go
+	GOOS=linux CGO_ENABLED=0 GOARCH=arm64 go build -ldflags '-X k8s.io/component-base/version.gitVersion=$(VERSION) -w' -o bin/sample-scheduler cmd/scheduler/main.go
 
 
 # image
@@ -34,7 +34,7 @@ local-image: clean
 release-image.amd64: clean
 	docker build -f ./build/scheduler/Dockerfile --build-arg ARCH="amd64" --build-arg RELEASE_VERSION="$(RELEASE_VERSION)" -t $(RELEASE_REGISTRY)/$(RELEASE_IMAGE)-amd64 .
 
-.PHONY: release-image.arm64v8
+.PHONY: release-image.arm64
 release-image.arm64: clean
 	docker build -f ./build/scheduler/Dockerfile --build-arg ARCH="arm64" --build-arg RELEASE_VERSION="$(RELEASE_VERSION)" -t $(RELEASE_REGISTRY)/$(RELEASE_IMAGE)-arm64 .
 
