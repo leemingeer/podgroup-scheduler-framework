@@ -4,6 +4,6 @@
 
 scheduler:
   name: sample-scheduler
-  image: leemingeer/sample-scheduler:v1.1.0
+  image: leemingeer/sample-scheduler:v20230320-v0.0.1-arm64
   namespace: default
   replicaCount: 1

@@ -10,14 +10,16 @@ spec:
   selector:
     matchLabels:
       app: nginx
+      pod-group.scheduling.ming.io: nginx
   template:
     metadata:
       name: nginx
       labels:
         app: nginx
-        pod-group.scheduling.sigs.k8s.io: nginx
+        pod-group.scheduling.ming.io: nginx
     spec:
       schedulerName: sample-scheduler
+      priorityClassName: high-priority-nonpreempting
       containers:
         - name: nginx
           image: nginx

@@ -16,6 +16,7 @@ spec:
       labels:
         component: scheduler
     spec:
+      schedulerName: default-scheduler
       serviceAccountName: sample-scheduler
       nodeSelector:
         kubernetes.io/hostname: master1
