@@ -2,11 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a9078026-6f5f-4648-8646-0e607caa352a" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Note.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README" beforeDir="false" afterPath="$PROJECT_DIR$/README" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/example/nginx.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/example/nginx.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/install/charts/as-a-second-scheduler/templates/deployment.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/install/charts/as-a-second-scheduler/templates/deployment.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/install/charts/as-a-second-scheduler/values.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/install/charts/as-a-second-scheduler/values.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/coscheduling/core/core.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/coscheduling/core/core.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pkg/coscheduling/coscheduling.go" beforeDir="false" afterPath="$PROJECT_DIR$/pkg/coscheduling/coscheduling.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

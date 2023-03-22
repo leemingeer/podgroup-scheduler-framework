@@ -33,7 +33,7 @@ import (
 	"k8s.io/klog/v2"
 	"k8s.io/kubernetes/pkg/scheduler/framework"
 
-    schedulingv1 "github.com/leemingeer/podgroup-scheduler-framework/pkg/apis/scheduling/v1"
+	schedulingv1 "github.com/leemingeer/podgroup-scheduler-framework/pkg/apis/scheduling/v1"
 	pgclientset "github.com/leemingeer/podgroup-scheduler-framework/pkg/generated/clientset/versioned"
 	pginformer "github.com/leemingeer/podgroup-scheduler-framework/pkg/generated/informers/externalversions/scheduling/v1"
 	pglister "github.com/leemingeer/podgroup-scheduler-framework/pkg/generated/listers/scheduling/v1"
@@ -49,7 +49,7 @@ type Manager interface {
 	GetCreationTimestamp(*corev1.Pod, time.Time) time.Time
 	AddDeniedPodGroup(string)
 	DeletePermittedPodGroup(string)
-	CalculateAssignedPods(string, string) int
+	CalculateAssignedPods(podGroupName, namespace string,  pod *corev1.Pod) int
 }
 
 // PodGroupManager defines the scheduling operation called
@@ -152,6 +152,7 @@ func (pgMgr *PodGroupManager) PreFilter(ctx context.Context, pod *corev1.Pod) er
 
 // Permit permits a pod to run, if the minMember match, it would send a signal to chan.
 func (pgMgr *PodGroupManager) Permit(ctx context.Context, pod *corev1.Pod, nodeName string) (bool, error) {
+	klog.V(5).Infof("permit point for pod %v", pod.Name)
 	pgFullName, pg := pgMgr.GetPodGroup(pod)
 	if pgFullName == "" {
 		return true, util.ErrorNotMatched
@@ -161,7 +162,7 @@ func (pgMgr *PodGroupManager) Permit(ctx context.Context, pod *corev1.Pod, nodeN
 		return false, fmt.Errorf("PodGroup not found")
 	}
 
-	assigned := pgMgr.CalculateAssignedPods(pg.Name, pg.Namespace)
+	assigned := pgMgr.CalculateAssignedPods(pg.Name, pg.Namespace, pod)
 	// The number of pods that have been assigned nodes is calculated from the snapshot.
 	// The current pod in not included in the snapshot during the current scheduling cycle.
 	ready := int32(assigned)+1 >= pg.Spec.MinMember
@@ -173,6 +174,7 @@ func (pgMgr *PodGroupManager) Permit(ctx context.Context, pod *corev1.Pod, nodeN
 
 // PostBind updates a PodGroup's status.
 func (pgMgr *PodGroupManager) PostBind(ctx context.Context, pod *corev1.Pod, nodeName string) {
+	klog.V(5).Infof("PostBind point for pod %v", pod.Name)
 	pgMgr.Lock()
 	defer pgMgr.Unlock()
 	pgFullName, pg := pgMgr.GetPodGroup(pod)
@@ -258,22 +260,21 @@ func (pgMgr *PodGroupManager) GetPodGroup(pod *corev1.Pod) (string, *schedulingv
 }
 
 // CalculateAssignedPods returns the number of pods that has been assigned a node: assumed or bound.
-func (pgMgr *PodGroupManager) CalculateAssignedPods(podGroupName, namespace string) int {
-	nodeInfos, err := pgMgr.snapshotSharedLister.NodeInfos().List()
+func (pgMgr *PodGroupManager) CalculateAssignedPods(podGroupName, namespace string,  pod *corev1.Pod) int {
+	pods, err := pgMgr.podLister.Pods(pod.Namespace).List(
+		labels.SelectorFromSet(labels.Set{util.PodGroupLabel: util.GetPodGroupLabel(pod)}),
+	)
 	if err != nil {
 		klog.Errorf("Cannot get nodeInfos from frameworkHandle: %v", err)
 		return 0
 	}
 	var count int
-	for _, nodeInfo := range nodeInfos {
-		for _, podInfo := range nodeInfo.Pods {
-			pod := podInfo.Pod
-			if pod.Labels[util.PodGroupLabel] == podGroupName && pod.Namespace == namespace && pod.Spec.NodeName != "" {
-				count++
-			}
+	for _, podInfo := range pods {
+		pod := podInfo
+		if pod.Labels[util.PodGroupLabel] == podGroupName && pod.Namespace == namespace {
+			count++
 		}
 	}
-
 	return count
 }
 
